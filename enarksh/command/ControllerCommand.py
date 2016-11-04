@@ -5,43 +5,25 @@ Copyright 2013-2016 Set Based IT Consultancy
 
 Licence MIT
 """
-# ----------------------------------------------------------------------------------------------------------------------
-from cleo import Command
-
-from enarksh.Controller.Controller import Controller
-from enarksh.style.EnarkshStyle import EnarkshStyle
+from enarksh.command.DaemonCommand import DaemonCommand
+from enarksh.controller.Controller import Controller
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-class ControllerCommand(Command):
+class ControllerCommand(DaemonCommand):
     """
-    Starts the controller.
+    Starts the controller
+
+    controller
+        {--d|daemonize : Become a daemon}
     """
-
-    name = 'controller'
-
-    options = [
-        {
-            'name': 'daemonize',
-            'shortcut': 'd',
-            'flag': True,
-            'description': 'If set, use demonize'
-        }
-    ]
 
     # ------------------------------------------------------------------------------------------------------------------
     def handle(self):
         """
         Executes the controller command.
         """
-        self.output = EnarkshStyle(self.input, self.output)
-
         controller = Controller()
 
-        if self.option('daemonize'):
-            controller.daemonize()
-
-        controller.main()
-
+        self.handle_daemon('controllerd', controller)
 
 # ----------------------------------------------------------------------------------------------------------------------

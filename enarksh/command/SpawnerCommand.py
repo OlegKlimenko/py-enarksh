@@ -5,43 +5,25 @@ Copyright 2013-2016 Set Based IT Consultancy
 
 Licence MIT
 """
-# ----------------------------------------------------------------------------------------------------------------------
-from cleo import Command
-
-from enarksh.Spawner.Spawner import Spawner
-from enarksh.style.EnarkshStyle import EnarkshStyle
+from enarksh.command.DaemonCommand import DaemonCommand
+from enarksh.spawner.Spawner import Spawner
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-class SpawnerCommand(Command):
+class SpawnerCommand(DaemonCommand):
     """
-    Starts the spawner.
+    Starts the spawner
+
+    spawner
+        {--d|daemonize : Become a daemon}
     """
-
-    name = 'spawner'
-
-    options = [
-        {
-            'name': 'daemonize',
-            'shortcut': 'd',
-            'flag': True,
-            'description': 'If set, use demonize'
-        }
-    ]
 
     # ------------------------------------------------------------------------------------------------------------------
     def handle(self):
         """
         Executes the logger command.
         """
-        self.output = EnarkshStyle(self.input, self.output)
-
         spawner = Spawner()
 
-        if self.option('daemonize'):
-            spawner.daemonize()
-
-        spawner.main()
-
+        self.handle_daemon('spawnerd', spawner)
 
 # ----------------------------------------------------------------------------------------------------------------------

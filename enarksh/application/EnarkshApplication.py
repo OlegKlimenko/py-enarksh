@@ -10,6 +10,8 @@ from cleo import Application
 from enarksh.command.BootstrapCommand import BootstrapCommand
 from enarksh.command.LoadHostCommand import LoadHostCommand
 from enarksh.command.LoadScheduleCommand import LoadScheduleCommand
+from enarksh.command.NagiosCommand import NagiosCommand
+from enarksh.command.NodeActionCommand import NodeActionCommand
 
 
 class EnarkshApplication(Application):
@@ -22,7 +24,7 @@ class EnarkshApplication(Application):
         """
         Object constructor
         """
-        Application.__init__(self, 'Enarksh', '0.0.0')
+        Application.__init__(self, 'Enarksh', '0.9.0')
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_default_commands(self):
@@ -36,8 +38,9 @@ class EnarkshApplication(Application):
         self.add(BootstrapCommand())
         self.add(LoadHostCommand())
         self.add(LoadScheduleCommand())
+        self.add(NagiosCommand())
+        self.add(NodeActionCommand())
 
         return commands
-
 
 # ----------------------------------------------------------------------------------------------------------------------

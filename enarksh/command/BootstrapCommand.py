@@ -5,7 +5,6 @@ Copyright 2013-2016 Set Based IT Consultancy
 
 Licence MIT
 """
-# ----------------------------------------------------------------------------------------------------------------------
 import os
 
 from cleo import Command
@@ -15,13 +14,12 @@ from enarksh.Bootsrap import Bootstrap
 from enarksh.style.EnarkshStyle import EnarkshStyle
 
 
-# ----------------------------------------------------------------------------------------------------------------------
 class BootstrapCommand(Command):
     """
-    Executes bootstrap.
-    """
+    Executes bootstrap
 
-    name = 'bootstrap'
+    bootstrap
+    """
 
     # ------------------------------------------------------------------------------------------------------------------
     def handle(self):
@@ -33,8 +31,6 @@ class BootstrapCommand(Command):
         os.chdir(enarksh.HOME)
 
         bootstrap = Bootstrap()
-        ret = bootstrap.main()
-
-        exit(ret)
+        bootstrap.main()
 
 # ----------------------------------------------------------------------------------------------------------------------

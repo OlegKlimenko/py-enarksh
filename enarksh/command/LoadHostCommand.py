@@ -5,20 +5,19 @@ Copyright 2013-2016 Set Based IT Consultancy
 
 Licence MIT
 """
-# ----------------------------------------------------------------------------------------------------------------------
 from cleo import Command
 
-from enarksh.Util.LoadHost import LoadHost
+from enarksh.controller.client.LoadHostClient import LoadHostClient
 from enarksh.style.EnarkshStyle import EnarkshStyle
 
 
-# ----------------------------------------------------------------------------------------------------------------------
 class LoadHostCommand(Command):
     """
-    Loads the host.
-    """
+    Requests the controller to load a host definition
 
-    name = 'load_host'
+    load_host
+        {host.xml : The host definition to load}
+    """
 
     # ------------------------------------------------------------------------------------------------------------------
     def handle(self):
@@ -27,7 +26,9 @@ class LoadHostCommand(Command):
         """
         self.output = EnarkshStyle(self.input, self.output)
 
-        reader = LoadHost()
-        reader.main()
+        client = LoadHostClient()
+        ret = client.main(self.input.get_argument('host.xml'))
+
+        return ret
 
 # ----------------------------------------------------------------------------------------------------------------------

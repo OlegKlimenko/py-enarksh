@@ -5,43 +5,25 @@ Copyright 2013-2016 Set Based IT Consultancy
 
 Licence MIT
 """
-# ----------------------------------------------------------------------------------------------------------------------
-from cleo import Command
-
-from enarksh.Logger.Logger import Logger
-from enarksh.style.EnarkshStyle import EnarkshStyle
+from enarksh.command.DaemonCommand import DaemonCommand
+from enarksh.logger.Logger import Logger
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-class LoggerCommand(Command):
+class LoggerCommand(DaemonCommand):
     """
-    Starts the logger.
+    Starts the logger
+
+    logger
+        {--d|daemonize : Become a daemon}
     """
-
-    name = 'logger'
-
-    options = [
-        {
-            'name': 'daemonize',
-            'shortcut': 'd',
-            'flag': True,
-            'description': 'If set, use demonize'
-        }
-    ]
 
     # ------------------------------------------------------------------------------------------------------------------
     def handle(self):
         """
         Executes the logger command.
         """
-        self.output = EnarkshStyle(self.input, self.output)
-
         logger = Logger()
 
-        if self.option('daemonize'):
-            pass  # @todo do stuff
-
-        logger.main()
-
+        self.handle_daemon('loggerd', logger)
 
 # ----------------------------------------------------------------------------------------------------------------------
